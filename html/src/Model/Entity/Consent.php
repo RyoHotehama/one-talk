@@ -32,6 +32,5 @@ class Consent extends Entity
         'your_id' => true,
         'created' => true,
         'user' => true,
-        'your' => true,
     ];
 }

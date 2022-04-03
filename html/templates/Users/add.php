@@ -20,14 +20,14 @@
                     echo $this->Form->control('username');
                     echo $this->Form->control('email');
                     echo $this->Form->control('password');
-                    echo $this->Form->control('title');
-                    echo $this->Form->control('image_1');
-                    echo $this->Form->control('image_2');
-                    echo $this->Form->control('image_3');
-                    echo $this->Form->control('image_4');
-                    echo $this->Form->control('image_5');
+                    // echo $this->Form->control('title');
+                    // echo $this->Form->control('image_1');
+                    // echo $this->Form->control('image_2');
+                    // echo $this->Form->control('image_3');
+                    // echo $this->Form->control('image_4');
+                    // echo $this->Form->control('image_5');
                     echo $this->Form->control('role');
-                    echo $this->Form->control('del_flg');
+                    //echo $this->Form->control('del_flg');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

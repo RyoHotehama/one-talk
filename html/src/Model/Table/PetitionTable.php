@@ -48,10 +48,6 @@ class PetitionTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Yours', [
-            'foreignKey' => 'your_id',
-            'joinType' => 'INNER',
-        ]);
     }
 
     /**

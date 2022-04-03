@@ -30,6 +30,5 @@ class Petition extends Entity
         'user_id' => true,
         'your_id' => true,
         'user' => true,
-        'your' => true,
     ];
 }

@@ -36,6 +36,5 @@ class Talk extends Entity
         'body' => true,
         'created' => true,
         'user' => true,
-        'your' => true,
     ];
 }

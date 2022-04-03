@@ -47,7 +47,15 @@ class UsersTable extends Table
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
 
-        $this->addBehavior('Timestamp');
+        $this->addBehavior('Timestamp',  [
+            'events' => [
+              'Model.beforeSave' => [
+                'created' => 'new',
+                'updated' => 'always'
+              ]
+            ]
+          ]
+        );
 
         $this->hasMany('Consent', [
             'foreignKey' => 'user_id',
@@ -92,8 +100,7 @@ class UsersTable extends Table
         $validator
             ->scalar('title')
             ->maxLength('title', 100)
-            ->requirePresence('title', 'create')
-            ->notEmptyString('title');
+            ->allowEmptyFile('title');
 
         $validator
             ->scalar('image_1')

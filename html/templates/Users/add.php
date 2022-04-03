@@ -13,7 +13,7 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="users form content">
-            <?= $this->Form->create($user) ?>
+            <?= $this->Form->create($user, ['enctype' => 'multipart/form-data']) ?>
             <fieldset>
                 <legend><?= __('Add User') ?></legend>
                 <?php
@@ -21,7 +21,8 @@
                     echo $this->Form->control('email');
                     echo $this->Form->control('password');
                     // echo $this->Form->control('title');
-                    // echo $this->Form->control('image_1');
+                    echo 'アイコンを選択';
+                    echo $this->Form->file('image_1');
                     // echo $this->Form->control('image_2');
                     // echo $this->Form->control('image_3');
                     // echo $this->Form->control('image_4');

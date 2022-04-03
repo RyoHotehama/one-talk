@@ -20,7 +20,7 @@ class UsersController extends AppController
 
         //タイムゾーンを設定
         date_default_timezone_set('Asia/Tokyo');
-        
+
         //各種コンポーネントのロード
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
@@ -44,6 +44,10 @@ class UsersController extends AppController
             ],
             'authError' => 'ログインしてください'
         ]);
+
+        //ログインしているユーザーをauthuserに登録
+        $this->set('authuser', $this->Auth->user());
+
     }
 
     //ログイン処理
@@ -73,7 +77,7 @@ class UsersController extends AppController
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['login', 'index', 'add', 'edit']);
+        $this->Auth->allow(['login', 'index', 'add', 'edit', 'profile']);
     }
 
     //認証時のロールチェック
@@ -130,7 +134,20 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $fileName = $_FILES['image_1']['name'];
+            if (!empty($fileName)) {
+              $ext = substr($fileName, -3);
+              if($ext != 'jpg' && $ext != 'gif' && $ext != 'png'){
+                $error['image_1'] = 'type';
+              }
+            }
+            $image = date('YmdHis') . $_FILES['image_1']['name'];
+            move_uploaded_file($_FILES['image_1']['tmp_name'],
+            '../webroot/img/' . $image);
+            $new_data = $this->request->getData();
+            $new_data['image_1'] = $image;
+  
+            $user = $this->Users->patchEntity($user, $new_data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
@@ -183,5 +200,12 @@ class UsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function profile()
+    {
+        $user = $this->Users->get($this->Auth->user('id'));
+        
+        $this->set(compact('user'));
     }
 }

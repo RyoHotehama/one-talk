@@ -26,7 +26,7 @@
                     echo $this->Form->control('email');
                     echo $this->Form->control('password');
                     echo $this->Form->control('title');
-                    echo $this->Form->control('image_1');
+                    echo $this->Form->file('image_1');
                     echo $this->Form->control('image_2');
                     echo $this->Form->control('image_3');
                     echo $this->Form->control('image_4');

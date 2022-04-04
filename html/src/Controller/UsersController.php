@@ -134,26 +134,52 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $fileName = $_FILES['image_1']['name'];
-            if (!empty($fileName)) {
-              $ext = substr($fileName, -3);
-              if($ext != 'jpg' && $ext != 'gif' && $ext != 'png'){
-                $error['image_1'] = 'type';
-              }
-            }
-            $image = date('YmdHis') . $_FILES['image_1']['name'];
-            move_uploaded_file($_FILES['image_1']['tmp_name'],
-            '../webroot/img/' . $image);
+
+            //データの取得
             $new_data = $this->request->getData();
-            $new_data['image_1'] = $image;
-  
+
+            //写真の保存
+            if(isset($_FILES['image_1']['name'])) {
+                $image1 = date('YmdHis') . $_FILES['image_1']['name'];
+                move_uploaded_file($_FILES['image_1']['tmp_name'],
+            '../webroot/img/' . $image1);
+                $new_data['image_1'] = $image1;
+            }
+
+            if(isset($_FILES['image_2']['name'])) {
+                $image2 = date('YmdHis') . $_FILES['image_2']['name'];
+                move_uploaded_file($_FILES['image_2']['tmp_name'],
+            '../webroot/img/' . $image2);
+                $new_data['image_2'] = $image2;
+            }
+            
+            if(isset($_FILES['image_3']['name'])) {
+                $image3 = date('YmdHis') . $_FILES['image_3']['name'];
+                move_uploaded_file($_FILES['image_3']['tmp_name'],
+            '../webroot/img/' . $image3);
+                $new_data['image_3'] = $image3;
+            }
+            
+            if(isset($_FILES['image_4']['name'])) {
+                $image4 = date('YmdHis') . $_FILES['image_4']['name'];
+                move_uploaded_file($_FILES['image_4']['tmp_name'],
+            '../webroot/img/' . $image4);
+                $new_data['image_4'] = $image4;
+            }
+
+            if(isset($_FILES['image_5']['name'])) {
+                $image5 = date('YmdHis') . $_FILES['image_5']['name'];
+                move_uploaded_file($_FILES['image_5']['tmp_name'],
+            '../webroot/img/' . $image5);
+                $new_data['image_5'] = $image5;
+            }
+            
+            //データの登録
             $user = $this->Users->patchEntity($user, $new_data);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('うまく作成できませんでした。'));
         }
         $this->set(compact('user'));
     }
